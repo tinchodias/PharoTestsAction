@@ -88,7 +88,7 @@ IOPharoTestsRunner >> removeNamed: aString [
 		RSWorldMenu class compile: 'foo: a <worldMenu>'.
 	]." 
 	regExp := '*', aString, '*'.
-	packages := RPackageOrganizer default packages
+	packages := self class packageOrganizer packages
 		select: [ :each | regExp match: each name ].
 	packages do: [ :each | each removeFromSystem ].
 ]
