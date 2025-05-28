@@ -1,6 +1,6 @@
-Extension { #name : #TestSkipped }
+Extension { #name : 'TestSkipped' }
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 TestSkipped >> processActionBlock: ablock test: aTestCase [
 	
 ]

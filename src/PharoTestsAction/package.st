@@ -1,1 +1,1 @@
-Package { #name : #PharoTestsAction }
+Package { #name : 'PharoTestsAction' }

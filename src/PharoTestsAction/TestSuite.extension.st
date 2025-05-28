@@ -1,6 +1,6 @@
-Extension { #name : #TestSuite }
+Extension { #name : 'TestSuite' }
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 TestSuite >> run: result block: aBlock set: set [
 	CurrentExecutionEnvironment runTestsBy: [
 		self setUp.
@@ -17,7 +17,7 @@ TestSuite >> run: result block: aBlock set: set [
 	
 ]
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 TestSuite >> runWithAction: set block: aBlock [
 	| result |
 	result := self resultClass new.

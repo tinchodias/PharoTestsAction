@@ -2,29 +2,30 @@
 Class used to remove existing code the load it again to finally run tests
 "
 Class {
-	#name : #IOPharoTestsRunner,
-	#superclass : #Object,
+	#name : 'IOPharoTestsRunner',
+	#superclass : 'Object',
 	#instVars : [
 		'names',
 		'repos',
 		'cout'
 	],
-	#category : #PharoTestsAction
+	#category : 'PharoTestsAction',
+	#package : 'PharoTestsAction'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IOPharoTestsRunner >> cout [
 
 	^ cout
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IOPharoTestsRunner >> cout: anObject [
 
 	cout := anObject
 ]
 
-{ #category : #default }
+{ #category : 'default' }
 IOPharoTestsRunner >> defaultRepos [
 	| block |
 	block := [ :a :b |
@@ -37,20 +38,20 @@ IOPharoTestsRunner >> defaultRepos [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 IOPharoTestsRunner >> initialize [
 	super initialize.
 	self cout: Stdio stdout.
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> load: aRepoString group: aGroupString [
 	self repos at: aRepoString
 		ifPresent: [ :block | block value: aRepoString value: aGroupString ] 
 		ifAbsent: [ self loadDefault: aRepoString group: aGroupString ].
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> loadDefault: aBaselineName group: group [
 	| env repoPath |
 	env := Smalltalk os environment.
@@ -67,7 +68,7 @@ IOPharoTestsRunner >> loadDefault: aBaselineName group: group [
 	self show: 'Finish baseline `', aBaselineName, '`'.
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 IOPharoTestsRunner >> remove: aString [
 	aString = '.' ifTrue: [ 
 		self show: 'Nothing to remove!'.
@@ -79,7 +80,7 @@ IOPharoTestsRunner >> remove: aString [
 
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 IOPharoTestsRunner >> removeNamed: aString [
 	| regExp packages |
 	"aString = 'Roassal' ifTrue: [
@@ -92,12 +93,12 @@ IOPharoTestsRunner >> removeNamed: aString [
 	packages do: [ :each | each removeFromSystem ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IOPharoTestsRunner >> repos [
 	^ repos ifNil: [ repos := self defaultRepos ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> runTests: aString [
 	| errorFile |
 	errorFile := '/tmp/testError.txt' asFileReference.
@@ -106,7 +107,7 @@ IOPharoTestsRunner >> runTests: aString [
 	
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> runTests: aString onErrorStream: stream [
 	| unitTests numberOfPassed numberOfErrors numberOfTestsMethods numberOfSkipped set numberOfFailures |
 	self show: 'Running tests for `', aString, '`'.
@@ -145,12 +146,12 @@ IOPharoTestsRunner >> runTests: aString onErrorStream: stream [
 		numberOfTestsMethods}
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> show: aString [
 	cout << 'IO: ' << aString; crlf
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> showResult: aCollection [
 	| res |
 	res := aCollection collect: #asString.
@@ -165,12 +166,12 @@ IOPharoTestsRunner >> showResult: aCollection [
 		show:'Running tests completed!'
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 IOPharoTestsRunner >> splitString: aString [
 	^ (aString splitOn: ',') collect: [:each | each trimBoth ] as: Array.
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 IOPharoTestsRunner >> unitTestsFor: aString [
 	^ ((self splitString: aString) flatCollect: [ :name | | regExp |
 		regExp := '*', name , '*'.

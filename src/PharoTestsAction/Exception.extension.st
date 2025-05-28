@@ -1,10 +1,10 @@
-Extension { #name : #Exception }
+Extension { #name : 'Exception' }
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 Exception >> processActionBlock: ablock test: aTestCase [
 	ablock value: self value: aTestCase
 ]
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 Exception >> sunitAnnounce: a toResult: b [
 ]

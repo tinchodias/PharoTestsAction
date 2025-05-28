@@ -1,6 +1,6 @@
-Extension { #name : #Context }
+Extension { #name : 'Context' }
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 Context >> shortStackCrlf [
 	"Answer a String showing the top ten contexts on my sender chain."
 

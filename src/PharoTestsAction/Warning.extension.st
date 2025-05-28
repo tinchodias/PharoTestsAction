@@ -1,6 +1,6 @@
-Extension { #name : #Warning }
+Extension { #name : 'Warning' }
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 Warning >> processActionBlock: ablock test: aTestCase [
 
 ]

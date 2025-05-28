@@ -1,6 +1,6 @@
-Extension { #name : #TestResult }
+Extension { #name : 'TestResult' }
 
-{ #category : #'*PharoTestsAction' }
+{ #category : '*PharoTestsAction' }
 TestResult >> runCase: aTestCase block: aBlock [
 	[ 
 		aTestCase announce: TestCaseStarted withResult: self.
