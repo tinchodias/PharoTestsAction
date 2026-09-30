@@ -40,6 +40,7 @@ try {
     const tests = core.getInput('tests');
     let pharoVM = core.getInput('pharo').toLowerCase();
     
+    process.env['ACTION_REPO'] = __dirname;
     process.env['ACTION_REGEX_STRING'] = repositoriesToRemove;
     process.env['ACTION_BASELINE'] = baseline;
     process.env['ACTION_GROUP'] = group;
@@ -67,8 +68,8 @@ try {
     run(commands.join(' && '));//this will fix .git folder and the runTests.st can load this current version into the image
 
     let file = path.join(__dirname, '/runTest.st');
-    console.log('Running: '+'./pharo --headless Pharo.image ' + file);
-    var eva = spawn('./pharo', ['--headless', 'Pharo.image', file]);
+    console.log('Running: '+'./pharo --headless Pharo.image st ' + file);
+    var eva = spawn('./pharo', ['--headless', 'Pharo.image', 'st', file]);
     eva.stdout.on('data', function(msg){
         process.stdout.write(msg);
     });
@@ -82,6 +83,9 @@ try {
             //console.log(trace(eva);
             console.log('\x1b[31m', fs.readFileSync(errorFile, 'utf8'));
             core.setFailed(dragon());
+        }else if (code !== 0){
+            console.log('\x1b[31m', `Pharo exited with error code: ${code}`);
+            core.setFailed(`Pharo process exited with code ${code}`);
         }else {
             console.log(`Pharo exited with code: ${code}`);
             console.log('\x1b[32m', 'All test Passed!');

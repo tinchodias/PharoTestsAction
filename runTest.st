@@ -1,27 +1,23 @@
-| env cout file last repoPath actionRepo regExp baseline group tests currentTime category |
+| env cout actionRepo regExp baseline group tests currentTime |
 env := Smalltalk os environment.
 cout := Stdio stdout.
+actionRepo := env at: 'ACTION_REPO'.
 regExp := env at: 'ACTION_REGEX_STRING'.
 baseline := env at: 'ACTION_BASELINE'.
 group := env at: 'ACTION_GROUP'.
 tests := env at: 'ACTION_TESTS'.
 
-actionRepo := ((CommandLineArguments class canUnderstand: #default) 
-    ifTrue: [CommandLineArguments default]
-ifFalse: [CommandLineArguments new])arguments last asFileReference parent absolutePath pathString.
-
 cout 
     << 'Loading action repository: gitlocal://';
     << actionRepo;
     crlf.
-category := 'haroTestsAction'.
-"To remove metacello notifactions"
-MetacelloNotification compile: 'defaultAction' classified: category."TODO add a configuration to enable or disable this action"
-NewUndeclaredWarning compile: 'defaultAction' classified: category.
-MCGitBasedNetworkRepository compile: 'traceCr: aString' classified: category.
-ReleaseTest compile: 'testObsoleteClasses' classified: 'tests'.
-ReleaseTest compile: 'testPharoVersionFileExists' classified: 'tests'.
-currentTime := DateAndTime now.
+"Remove some noise"
+MetacelloNotification compile: 'defaultAction'.
+NewUndeclaredWarning compile: 'defaultAction'.
+MCGitBasedNetworkRepository compile: 'traceCr: aString'.
+ReleaseTest compile: 'testObsoleteClasses'.
+ReleaseTest compile: 'testPharoVersionFileExists'.
+
 [Metacello new
     baseline: 'PharoTestsAction';
     repository: 'gitlocal://', actionRepo;
