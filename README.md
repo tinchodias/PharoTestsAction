@@ -15,7 +15,7 @@ jobs:
     name: CI for the action
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.12.1
+        uses: styfle/cancel-workflow-action@0.13.1
         with:
           access_token: ${{ github.token }}
       - uses: actions/checkout@v7
@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
       - name: Run pharo Tests
         id: tests
-        uses: akevalion/PharoTestsAction@v1
+        uses: tinchodias/PharoTestsAction@v4
         with:
           removes-repo: 'Roassal, Numeric' # Comma-separated strings; all packages that begin with each string will be removed from system
           baseline: 'PharoTestsAction'
