@@ -48,16 +48,11 @@ try {
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
 
-    const map = {
-        "pharo9": "90+vm",
-        "pharo10": "100+vm",
-        "pharo11": "110+vm",
-        "pharo12": "120+vm",
-    };
-    if(map[pharoVM] == undefined)
-        pharoVM = '64/alpha+vm';
+    const match = pharoVM.match(/^pharo(\d+)$/);
+    if (match)
+        pharoVM = `${match[1]}0+vm`;
     else
-        pharoVM = map[pharoVM];
+        pharoVM = '64/alpha+vm';
 
     run ('curl -L https://get.pharo.org/' + pharoVM +' | bash');
     
