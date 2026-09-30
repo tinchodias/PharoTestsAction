@@ -5,7 +5,7 @@ const {execSync, spawn} = require('child_process');
 const path = require('path');
 const fs = require('fs');
 function trace(anObject){
-    return new Buffer.from(anObject).toString()
+    return Buffer.from(anObject).toString();
 }
 function run(command){
     console.log('Running: '+command);
