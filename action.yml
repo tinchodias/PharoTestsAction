@@ -18,7 +18,7 @@ inputs:
     required: true
     default: '.'
   pharo: # id of input
-    description: 'A pharo version, can be pharo9, pharo10 or pharo11'
+    description: 'A pharo version, e.g. pharo14 or pharo15'
     required: false
     default: '64/alpha+vm'
 
@@ -26,7 +26,7 @@ outputs:
   time: # id of output
     description: 'The current time'
 runs:
-  using: 'node16'
+  using: 'node24'
   main: 'index.js'
 
 branding:

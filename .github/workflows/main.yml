@@ -6,16 +6,16 @@ jobs:
     name: CI for the action
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.12.0
+        uses: styfle/cancel-workflow-action@0.13.1
         with:
           access_token: ${{ github.token }}
       
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Run pharo Tests
         id: tests
-        uses: akevalion/PharoTestsAction@v1
+        uses: tinchodias/PharoTestsAction@v4
         with:
           # removes-repo: ''
           baseline: 'PharoTestsAction'

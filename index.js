@@ -5,7 +5,7 @@ const {execSync, spawn} = require('child_process');
 const path = require('path');
 const fs = require('fs');
 function trace(anObject){
-    return new Buffer.from(anObject).toString()
+    return Buffer.from(anObject).toString();
 }
 function run(command){
     console.log('Running: '+command);
@@ -40,6 +40,7 @@ try {
     const tests = core.getInput('tests');
     let pharoVM = core.getInput('pharo').toLowerCase();
     
+    process.env['ACTION_REPO'] = __dirname;
     process.env['ACTION_REGEX_STRING'] = repositoriesToRemove;
     process.env['ACTION_BASELINE'] = baseline;
     process.env['ACTION_GROUP'] = group;
@@ -48,16 +49,11 @@ try {
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
 
-    const map = {
-        "pharo9": "90+vm",
-        "pharo10": "100+vm",
-        "pharo11": "110+vm",
-        "pharo12": "120+vm",
-    };
-    if(map[pharoVM] == undefined)
-        pharoVM = '64/alpha+vm';
+    const match = pharoVM.match(/^pharo(\d+)$/);
+    if (match)
+        pharoVM = `${match[1]}0+vm`;
     else
-        pharoVM = map[pharoVM];
+        pharoVM = '64/alpha+vm';
 
     run ('curl -L https://get.pharo.org/' + pharoVM +' | bash');
     
@@ -72,8 +68,8 @@ try {
     run(commands.join(' && '));//this will fix .git folder and the runTests.st can load this current version into the image
 
     let file = path.join(__dirname, '/runTest.st');
-    console.log('Running: '+'./pharo --headless Pharo.image ' + file);
-    var eva = spawn('./pharo', ['--headless', 'Pharo.image', file]);
+    console.log('Running: '+'./pharo --headless Pharo.image st ' + file);
+    var eva = spawn('./pharo', ['--headless', 'Pharo.image', 'st', file]);
     eva.stdout.on('data', function(msg){
         process.stdout.write(msg);
     });
@@ -87,6 +83,9 @@ try {
             //console.log(trace(eva);
             console.log('\x1b[31m', fs.readFileSync(errorFile, 'utf8'));
             core.setFailed(dragon());
+        }else if (code !== 0){
+            console.log('\x1b[31m', `Pharo exited with error code: ${code}`);
+            core.setFailed(`Pharo process exited with code ${code}`);
         }else {
             console.log(`Pharo exited with code: ${code}`);
             console.log('\x1b[32m', 'All test Passed!');
