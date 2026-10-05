@@ -68,7 +68,7 @@ try {
     run(commands.join(' && '));//this will fix .git folder and the runTests.st can load this current version into the image
 
     let file = path.join(__dirname, '/runTest.st');
-    console.log('Running: '+'./pharo --headless Pharo.image st ' + file);
+    console.log('Running .st');
     var eva = spawn('./pharo', ['--headless', 'Pharo.image', 'st', file]);
     eva.stdout.on('data', function(msg){
         process.stdout.write(msg);
