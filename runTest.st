@@ -11,12 +11,11 @@ cout
     << 'Loading action repository: gitlocal://';
     << actionRepo;
     crlf.
-"Remove some noise"
+
+"Patch some methods to avoid noise in log"
 MetacelloNotification compile: 'defaultAction'.
 NewUndeclaredWarning compile: 'defaultAction'.
 MCGitBasedNetworkRepository compile: 'traceCr: aString'.
-ReleaseTest compile: 'testObsoleteClasses'.
-ReleaseTest compile: 'testPharoVersionFileExists'.
 
 [Metacello new
     baseline: 'PharoTestsAction';
